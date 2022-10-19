@@ -31,6 +31,9 @@ fn main() {
     let file_path = scrape_config.file;
     println!("In file: {}", file_path);
 
+    println!("Press ENTER to continue...");
+    std::io::stdin().read_line(&mut String::new()).unwrap();
+
     let contents = fs::read_to_string(file_path).expect("Wasn't able to read the file.");
 
     let mut stream = TcpStream::connect(conn_string).expect("Couldn't connect.");
@@ -38,7 +41,8 @@ fn main() {
         .write(contents.to_string().as_bytes())
         .expect("Couldn't write.");
 
-    println!("Done.");
+    println!("Press ENTER to exit...");
+    std::io::stdin().read_line(&mut String::new()).unwrap();
 }
 
 fn config_check() {
@@ -49,6 +53,9 @@ fn config_check() {
 
         file.write("file:\nip:\nport:".to_string().as_bytes())
             .expect("Couldn't write file.");
+
+        println!("Press ENTER to exit...");
+        std::io::stdin().read_line(&mut String::new()).unwrap();
         exit(0);
     }
 }
